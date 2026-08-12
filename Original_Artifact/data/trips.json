@@ -1,0 +1,32 @@
+[
+  {
+    "code": "GALE",
+    "name": "Gale Reef",
+    "length": "3 nights / 4 days",
+    "start": "2023-04-01",
+    "resort": "Emerald Bay Resort",
+    "perPerson": 799,
+    "image": "reef1.jpg",
+    "description": "Gale Reef is a guided reef adventure with snorkeling, ocean views, and relaxing beachside lodging."
+  },
+  {
+    "code": "DAWSON",
+    "name": "Dawson's Reef",
+    "length": "5 nights / 6 days",
+    "start": "2023-05-12",
+    "resort": "Sunset Cove Resort",
+    "perPerson": 999,
+    "image": "reef2.jpg",
+    "description": "Dawson's Reef features diving excursions, coastal dining, and a longer island escape for travelers."
+  },
+  {
+    "code": "CLAIRE",
+    "name": "Claire's Reef",
+    "length": "4 nights / 5 days",
+    "start": "2023-06-20",
+    "resort": "Blue Water Retreat",
+    "perPerson": 899,
+    "image": "reef3.jpg",
+    "description": "Claire's Reef combines scenic reef tours, relaxing accommodations, and a full beach getaway experience."
+  }
+]
