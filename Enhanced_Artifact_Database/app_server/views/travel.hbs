@@ -1,0 +1,95 @@
+<div id="background">
+  <div id="page">
+    <div id="header">
+      <div id="logo">
+        <a href="/"><img src="/images/logo.png" alt="LOGO" height="100" width="200"></a>
+      </div>
+      <div id="navigation">
+        <ul>
+          <li>
+            <a href="/">Home</a>
+          </li>
+          <li class="selected">
+            <a href="/travel">Travel</a>
+          </li>
+          <li>
+            <a href="/rooms">Rooms</a>
+          </li>
+          <li>
+            <a href="/meals">Meals</a>
+          </li>
+          <li>
+            <a href="/news">News</a>
+          </li>
+          <li>
+            <a href="/about">About</a>
+          </li>
+          <li>
+            <a href="/contact">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="contents">
+      <div class="box">
+        <div>
+          <div class="body">
+            <h1>{{title}}</h1>
+            <ul id="sites">
+              {{#each trips}}
+              <li>
+                <a href="/travel"><img src="/images/{{image}}" alt="{{name}}"></a>
+                <h2><a href="/travel">{{name}}</a></h2>
+                <p>{{description}}</p>
+                <p><strong>Length:</strong> {{length}}</p>
+                <p><strong>Start Date:</strong> {{start}}</p>
+                <p><strong>Resort:</strong> {{resort}}</p>
+                <p><strong>Price:</strong> ${{perPerson}} per person</p>
+              </li>
+              {{/each}}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="footer">
+    <div>
+      <ul class="navigation">
+        <li>
+          <a href="/">Home</a>
+        </li>
+        <li class="active">
+          <a href="/travel">Travel</a>
+        </li>
+        <li>
+          <a href="/rooms">Rooms</a>
+        </li>
+        <li>
+          <a href="/meals">Meals</a>
+        </li>
+        <li>
+          <a href="/news">News</a>
+        </li>
+        <li>
+          <a href="/about">About</a>
+        </li>
+        <li>
+          <a href="/contact">Contact</a>
+        </li>
+      </ul>
+
+      <div id="connect">
+        <a href="http://pinterest.com/fwtemplates/" target="_blank" class="pinterest"></a>
+        <a href="http://freewebsitetemplates.com/go/facebook/" target="_blank" class="facebook"></a>
+        <a href="http://freewebsitetemplates.com/go/twitter/" target="_blank" class="twitter"></a>
+        <a href="http://freewebsitetemplates.com/go/googleplus/" target="_blank" class="googleplus"></a>
+      </div>
+    </div>
+    <p>
+      © 2023 by Travlr Getaways. All Rights Reserved
+    </p>
+  </div>
+</div>
