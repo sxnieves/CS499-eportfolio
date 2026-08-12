@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Xavier Nieves — CS 499 ePortfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F5F6F8;
+    --paper-alt:#ECEEF2;
+    --ink:#1B2430;
+    --ink-soft:#4A5568;
+    --teal:#2B7A78;
+    --teal-deep:#1F5957;
+    --amber:#C9A227;
+    --line:#D8DCE3;
+    --white:#FFFFFF;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    color:var(--ink);
+  }
+  .mono{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--teal-deep);
+  }
+  a{color:var(--teal-deep);}
+  .wrap{max-width:960px; margin:0 auto; padding:0 28px;}
+
+  /* NAV */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(245,246,248,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 28px;
+  }
+  nav .brand{font-family:'Fraunces', serif; font-weight:600; font-size:1.05rem;}
+  nav ul{list-style:none; display:flex; gap:28px;}
+  nav a{
+    color:var(--ink-soft); text-decoration:none; font-size:0.92rem; font-weight:500;
+  }
+  nav a:hover{color:var(--teal-deep);}
+
+  /* HERO */
+  header.hero{padding:88px 0 64px;}
+  .eyebrow{margin-bottom:18px;}
+  .hero h1{font-size:2.6rem; line-height:1.15; max-width:680px; margin-bottom:20px;}
+  .hero p.lead{max-width:600px; font-size:1.08rem; color:var(--ink-soft); margin-bottom:32px;}
+  .hero-links{display:flex; gap:14px; flex-wrap:wrap;}
+  .btn{
+    display:inline-block; padding:11px 20px; border-radius:3px;
+    font-size:0.9rem; font-weight:600; text-decoration:none;
+    border:1px solid var(--ink); color:var(--ink);
+    transition:all .15s ease;
+  }
+  .btn.primary{background:var(--ink); color:var(--white);}
+  .btn.primary:hover{background:var(--teal-deep); border-color:var(--teal-deep);}
+  .btn:not(.primary):hover{border-color:var(--teal-deep); color:var(--teal-deep);}
+
+  /* SIGNATURE DIAGRAM */
+  .diagram-section{padding:20px 0 80px;}
+  .diagram-frame{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:48px 32px 40px;
+  }
+  svg{width:100%; height:auto; display:block;}
+  .node-label{font-family:'IBM Plex Mono', monospace; font-size:11px; fill:var(--ink-soft);}
+  .node-title{font-family:'Fraunces', serif; font-size:15px; font-weight:600; fill:var(--ink);}
+  .diagram-caption{
+    text-align:center; margin-top:18px; font-size:0.85rem; color:var(--ink-soft); font-style:italic;
+  }
+
+  /* SECTIONS */
+  section{padding:64px 0; border-top:1px solid var(--line);}
+  section .kicker{margin-bottom:14px;}
+  section h2{font-size:1.9rem; margin-bottom:24px;}
+  section .intro-text{max-width:680px; color:var(--ink-soft); margin-bottom:8px;}
+
+  .assessment-body p{margin-bottom:18px; max-width:700px; color:var(--ink); font-size:1rem;}
+  .assessment-body h3{font-size:1.15rem; margin:28px 0 10px; color:var(--teal-deep);}
+
+  /* ARTIFACT CARDS */
+  .artifact{
+    background:var(--white); border:1px solid var(--line); border-radius:6px;
+    padding:32px; margin-bottom:24px;
+  }
+  .artifact-head{display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:14px;}
+  .artifact-head h3{font-size:1.3rem; color:var(--ink);}
+  .tag{
+    font-family:'IBM Plex Mono', monospace; font-size:0.72rem; text-transform:uppercase;
+    letter-spacing:0.05em; background:var(--paper-alt); color:var(--teal-deep);
+    padding:4px 10px; border-radius:20px; border:1px solid var(--line);
+  }
+  .artifact p{color:var(--ink-soft); margin-bottom:14px; max-width:680px;}
+  .artifact .placeholder{
+    background:var(--paper-alt); border:1px dashed var(--line); border-radius:4px;
+    padding:14px 16px; font-size:0.88rem; color:var(--ink-soft); margin:14px 0;
+  }
+  .artifact .links{display:flex; gap:16px; flex-wrap:wrap; margin-top:10px;}
+  .artifact .links a{font-size:0.88rem; font-weight:600; text-decoration:none;}
+  .artifact .links a::after{content:" →"; }
+
+  footer{
+    padding:48px 0 64px; border-top:1px solid var(--line);
+    color:var(--ink-soft); font-size:0.88rem;
+  }
+  footer a{font-weight:600;}
+
+  @media (max-width:640px){
+    .hero h1{font-size:2rem;}
+    nav ul{gap:16px;}
+    nav a{font-size:0.82rem;}
+    .diagram-frame{padding:28px 16px;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">Xavier Nieves</div>
+    <ul>
+      <li><a href="#assessment">Self-Assessment</a></li>
+      <li><a href="#artifacts">Artifacts</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow mono">CS 499 · Computer Science Capstone · SNHU</div>
+    <h1>A full-stack application, taken apart and rebuilt three times over.</h1>
+    <p class="lead">This ePortfolio traces one artifact — the Travlr Getaways MEAN-stack application — through three rounds of enhancement: software design and engineering, algorithms and data structures, and databases. Each round is documented below with the original code, the changes made, and the reasoning behind them.</p>
+    <div class="hero-links">
+      <a class="btn primary" href="#assessment">Read the self-assessment</a>
+      <a class="btn" href="#artifacts">Jump to artifacts</a>
+    </div>
+  </div>
+</header>
+
+<div class="diagram-section">
+  <div class="wrap">
+    <div class="diagram-frame">
+      <svg viewBox="0 0 860 300" xmlns="http://www.w3.org/2000/svg">
+        <!-- connectors -->
+        <line x1="430" y1="150" x2="180" y2="65"  stroke="#D8DCE3" stroke-width="1.5"/>
+        <line x1="430" y1="150" x2="180" y2="150" stroke="#D8DCE3" stroke-width="1.5"/>
+        <line x1="430" y1="150" x2="180" y2="235" stroke="#D8DCE3" stroke-width="1.5"/>
+        <line x1="430" y1="150" x2="680" y2="150" stroke="#2B7A78" stroke-width="1.5" stroke-dasharray="3,4"/>
+
+        <!-- center node: original artifact -->
+        <circle cx="430" cy="150" r="42" fill="#1B2430"/>
+        <text x="430" y="146" text-anchor="middle" class="node-title" fill="#F5F6F8" font-size="13">Travlr</text>
+        <text x="430" y="163" text-anchor="middle" class="node-title" fill="#F5F6F8" font-size="13">Getaways</text>
+
+        <!-- three enhancement nodes -->
+        <circle cx="180" cy="65" r="30" fill="#FFFFFF" stroke="#2B7A78" stroke-width="2"/>
+        <text x="180" y="60" text-anchor="middle" class="node-title" font-size="11">Software</text>
+        <text x="180" y="73" text-anchor="middle" class="node-title" font-size="11">Design</text>
+
+        <circle cx="180" cy="150" r="30" fill="#FFFFFF" stroke="#2B7A78" stroke-width="2"/>
+        <text x="180" y="145" text-anchor="middle" class="node-title" font-size="11">Algorithms</text>
+        <text x="180" y="158" text-anchor="middle" class="node-title" font-size="10">&amp; Data Structures</text>
+
+        <circle cx="180" cy="235" r="30" fill="#FFFFFF" stroke="#2B7A78" stroke-width="2"/>
+        <text x="180" y="239" text-anchor="middle" class="node-title" font-size="11">Databases</text>
+
+        <!-- destination: eportfolio -->
+        <circle cx="680" cy="150" r="34" fill="#C9A227" fill-opacity="0.12" stroke="#C9A227" stroke-width="2"/>
+        <text x="680" y="146" text-anchor="middle" class="node-title" font-size="12">ePortfolio</text>
+        <text x="680" y="160" text-anchor="middle" class="node-label" font-size="10">you are here</text>
+
+        <text x="180" y="20" text-anchor="middle" class="node-label">MILESTONE 2 · 3 · 4</text>
+      </svg>
+      <p class="diagram-caption">One artifact, enhanced across three areas of computer science, converging into this portfolio.</p>
+    </div>
+  </div>
+</div>
+
+<section id="assessment">
+  <div class="wrap">
+    <div class="kicker mono">Professional Self-Assessment</div>
+    <h2>Where I started, and where this program leaves me</h2>
+    <div class="assessment-body">
+      <p>Putting this ePortfolio together has been a good excuse to actually look back at everything I've built over the course of this program, instead of just moving on to the next assignment. I work full-time as a Microsoft Cloud Administrator and Director of Project Services, so most of my computer science education has happened in parallel with real IT work — troubleshooting Active Directory issues one night, then writing recursive algorithms for a data structures assignment the next. That back-and-forth has shaped how I think about software: less like an academic exercise and more like something that has to actually hold up when real people depend on it.</p>
+
+      <h3>Collaborating in a Team Environment</h3>
+      <p>Most of what I've learned about collaboration didn't come from a group project in this program — it came from my job. I support a healthcare organization's Microsoft 365 and Intune environment, which means I'm constantly coordinating with vendors, clinical staff, and other IT team members who don't share my technical background. Rolling out something like two-factor authentication to a staff base that's genuinely resistant to change taught me more about communication and buy-in than any solo coding assignment could. In the program itself, courses like CS 250 (Software Development Lifecycle) reinforced the same idea in a more structured way: code reviews, sprint planning, and documentation only work if the people around you can actually follow what you did and why.</p>
+
+      <h3>Communicating with Stakeholders</h3>
+      <p>Explaining technical work to a non-technical audience is something I do almost daily — drafting IT communications about domain trust errors, putting together procurement requests, or explaining to leadership why a legacy system needs to be replaced. That skill translated directly into this capstone. The code review video and the artifact narratives in this ePortfolio weren't written for another developer looking over my shoulder; they were written for an audience that includes managers, recruiters, and people evaluating whether I can explain my own work clearly.</p>
+
+      <h3>Data Structures and Algorithms</h3>
+      <p>My enhancement to the Travlr Getaways application is the clearest example of this outcome. The original project had a basic, unindexed search function. I added MongoDB text indexing on the backend and built a debounced search feature on the Angular frontend, so the application queries the database more efficiently and doesn't hammer the server with a request on every keystroke. It was a small-looking change with real trade-offs behind it — index size versus query speed, responsiveness versus server load.</p>
+
+      <h3>Software Engineering and Database</h3>
+      <p>The software design and database enhancements on the same Travlr application round this out. I built out full CRUD functionality, added validation, and hardened the security of the existing code, then followed that with database-layer improvements in Milestone Four. Working across the whole stack — from the Angular frontend down to the MongoDB collections — gave me a much better feel for how a design decision in one layer ripples into the others.</p>
+
+      <h3>Security</h3>
+      <p>Security isn't a bolt-on for me — it's baked into almost everything I touch professionally, from MFA and RBAC rollouts to reviewing legacy Group Policy objects for consolidation. That mindset showed up directly in the Travlr enhancements, where I hardened input validation and access control as part of the software design work, and it shaped how I approached the database enhancement too.</p>
+
+      <h3>How the Artifacts Fit Together</h3>
+      <p>All three enhancements in this ePortfolio build on a single artifact, the Travlr Getaways MEAN stack application, rather than three unrelated projects. I chose that route on purpose: it let me show growth across the full stack — frontend, algorithms, and database — on one coherent piece of software instead of a handful of disconnected demos.</p>
+    </div>
+  </div>
+</section>
+
+<section id="artifacts">
+  <div class="wrap">
+    <div class="kicker mono">Milestones Two, Three, Four</div>
+    <h2>Enhancement Artifacts</h2>
+    <p class="intro-text" style="margin-bottom:36px;">Every enhancement below is built on the same base artifact: the Travlr Getaways MEAN-stack travel booking application.</p>
+
+    <div class="artifact">
+      <div class="artifact-head">
+        <h3>Software Design &amp; Engineering</h3>
+        <span class="tag">Milestone Two</span>
+      </div>
+      <p>Full CRUD build-out on the Travlr Getaways application, with added input validation and security hardening across the existing codebase.</p>
+      <div class="placeholder" style="border-style:solid; background:var(--white);">The admin app's CRUD was only stubbed out — the service layer had create/update/delete methods defined, but the Angular components behind them were empty and the API endpoints didn't exist. I built out the full CRUD flow end to end, fixed a type mismatch between the Angular model and MongoDB schema, added schema-level validation and error handling, and moved hardcoded config into environment variables.</div>
+      <div class="links">
+        <a href="#">Original code</a>
+        <a href="#">Enhanced code</a>
+        <a href="narratives/milestone-2-narrative.html">Full narrative</a>
+      </div>
+    </div>
+
+    <div class="artifact">
+      <div class="artifact-head">
+        <h3>Algorithms &amp; Data Structures</h3>
+        <span class="tag">Milestone Three</span>
+      </div>
+      <p>Added MongoDB text indexing on the backend and a debounced search feature on the Angular frontend to improve query efficiency and reduce unnecessary server load.</p>
+      <div class="placeholder" style="border-style:solid; background:var(--white);">The original app had no search or filter feature at all — it pulled every trip and displayed it, with no query logic on either end. I added a MongoDB text index on the trip schema, and used RxJS (debounceTime, distinctUntilChanged, switchMap) on the Angular side so a request only fires once typing pauses. The search now scales with the number of matches instead of the size of the whole collection.</div>
+      <div class="links">
+        <a href="milestone-3-algorithms/Original_Artifact">Original code</a>
+        <a href="milestone-3-algorithms/Enhanced_Artifact">Enhanced code</a>
+        <a href="narratives/milestone-3-narrative.html">Full narrative</a>
+      </div>
+    </div>
+
+    <div class="artifact">
+      <div class="artifact-head">
+        <h3>Databases</h3>
+        <span class="tag">Milestone Four</span>
+      </div>
+      <p>Database-layer improvements to the Travlr Getaways application, building on the earlier CRUD and search work.</p>
+      <div class="placeholder" style="border-style:solid; background:var(--white);">Past the CRUD work, the database layer had real gaps: trip start was a plain string instead of a Date, there was only one collection with no modeled relationships, and every list request returned the whole collection. I converted start to a validated Date with a compound index, added a hashed-password User schema, added pagination to the trip listing, wrote an aggregation pipeline for per-resort stats, and added middleware to reject NoSQL-injection attempts.</div>
+      <div class="links">
+        <a href="milestone-4-databases/Original_Artifact">Original code</a>
+        <a href="milestone-4-databases/Enhanced_Artifact">Enhanced code</a>
+        <a href="narratives/milestone-4-narrative.html">Full narrative</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <p>Xavier Nieves — Microsoft Cloud Administrator &amp; Director of Project Services · Computer Science, SNHU</p>
+    <p>GitHub: <a href="https://github.com/sxnieves" target="_blank" rel="noopener">github.com/sxnieves</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
