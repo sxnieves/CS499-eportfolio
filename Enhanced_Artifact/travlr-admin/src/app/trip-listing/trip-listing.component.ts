@@ -43,7 +43,9 @@ export class TripListingComponent implements OnInit, OnDestroy {
       )
       .subscribe({
         next: (data) => {
-          this.trips = data;
+          // Database enhancement (Milestone Four): searchTrips now returns
+          // a paginated page object rather than a bare array.
+          this.trips = data.trips;
           this.loadError = null;
         },
         error: (err) => {
@@ -60,7 +62,10 @@ export class TripListingComponent implements OnInit, OnDestroy {
   loadTrips(): void {
     this.tripDataService.getTrips().subscribe({
       next: (data) => {
-        this.trips = data;
+        // Database enhancement (Milestone Four): the API now returns a
+        // page object ({ trips, page, total, ... }) instead of a bare
+        // array, so the list itself is the .trips property.
+        this.trips = data.trips;
         this.loadError = null;
       },
       error: (err) => {

@@ -14,10 +14,35 @@ const handleError = (res, err) => {
   return res.status(500).json({ message: 'Server error', error: err.message });
 };
 
+// Shared pagination helper used by both tripsList and tripsSearch so the
+// two endpoints behave consistently instead of one being paginated and the
+// other returning a bare array. Page/limit are clamped to sane values so a
+// bad or malicious query string can't force an oversized scan.
+const runPaginatedQuery = async (res, filter, options, req) => {
+  const page = Math.max(parseInt(req.query.page, 10) || 1, 1);
+  const limit = Math.min(Math.max(parseInt(req.query.limit, 10) || 20, 1), 100);
+  const skip = (page - 1) * limit;
+
+  const [trips, total] = await Promise.all([
+    Trip.find(filter, options.projection || null)
+      .sort(options.sort)
+      .skip(skip)
+      .limit(limit),
+    Trip.countDocuments(filter)
+  ]);
+
+  res.status(200).json({
+    trips,
+    page,
+    limit,
+    total,
+    totalPages: Math.ceil(total / limit)
+  });
+};
+
 const tripsList = async (req, res) => {
   try {
-    const trips = await Trip.find({});
-    res.status(200).json(trips);
+    await runPaginatedQuery(res, {}, { sort: { start: 1 } }, req);
   } catch (err) {
     handleError(res, err);
   }
@@ -47,6 +72,9 @@ const tripsList = async (req, res) => {
 //     preserved and this is purely additive.
 //   - Uses .exec() and async/await consistent with the rest of the
 //     controller so error handling stays uniform via handleError().
+//   - Database enhancement (Milestone Four): now shares the same pagination
+//     helper as tripsList, so search results are bounded the same way full
+//     listings are instead of returning every match in one response.
 //
 // Efficiency:
 //   - Only matching documents are sent over the network, reducing payload
@@ -57,16 +85,51 @@ const tripsSearch = async (req, res) => {
     const { q } = req.query;
 
     if (!q || !q.trim()) {
-      const trips = await Trip.find({});
-      return res.status(200).json(trips);
+      return runPaginatedQuery(res, {}, { sort: { start: 1 } }, req);
     }
 
-    const trips = await Trip.find(
+    await runPaginatedQuery(
+      res,
       { $text: { $search: q } },
-      { score: { $meta: 'textScore' } }
-    ).sort({ score: { $meta: 'textScore' } });
+      { projection: { score: { $meta: 'textScore' } }, sort: { score: { $meta: 'textScore' } } },
+      req
+    );
+  } catch (err) {
+    handleError(res, err);
+  }
+};
 
-    res.status(200).json(trips);
+// Database enhancement (Milestone Four): aggregation pipeline reporting
+// endpoint. Groups trips by resort and returns trip count, average price,
+// and price range per resort — the kind of query that goes beyond basic
+// find()/CRUD and shows real use of the database engine to summarize data
+// rather than pulling everything back and summarizing it in application code.
+const tripsStatsByResort = async (req, res) => {
+  try {
+    const stats = await Trip.aggregate([
+      {
+        $group: {
+          _id: '$resort',
+          tripCount: { $sum: 1 },
+          averagePrice: { $avg: '$perPerson' },
+          minPrice: { $min: '$perPerson' },
+          maxPrice: { $max: '$perPerson' }
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          resort: '$_id',
+          tripCount: 1,
+          averagePrice: { $round: ['$averagePrice', 2] },
+          minPrice: 1,
+          maxPrice: 1
+        }
+      },
+      { $sort: { tripCount: -1 } }
+    ]);
+
+    res.status(200).json(stats);
   } catch (err) {
     handleError(res, err);
   }
@@ -151,5 +214,6 @@ module.exports = {
   tripsFindCode,
   tripsAddTrip,
   tripsUpdateTrip,
-  tripsDeleteTrip
+  tripsDeleteTrip,
+  tripsStatsByResort
 };
