@@ -7,6 +7,12 @@ router
   .get(ctrlTrips.tripsList)
   .post(ctrlTrips.tripsAddTrip);
 
+// Registered before '/trips/:tripCode' so Express doesn't match "search"
+// as a tripCode value.
+router
+  .route('/trips/search')
+  .get(ctrlTrips.tripsSearch);
+
 router
   .route('/trips/:tripCode')
   .get(ctrlTrips.tripsFindCode)

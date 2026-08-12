@@ -4,6 +4,17 @@
     <a routerLink="/add-trip" class="btn btn-success">Add Trip</a>
   </div>
 
+  <div class="mb-3">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Search trips by name, resort, or description..."
+      [ngModel]="searchTerm"
+      (ngModelChange)="onSearchChange($event)"
+      aria-label="Search trips"
+    />
+  </div>
+
   <div class="alert alert-danger" *ngIf="loadError">{{ loadError }}</div>
 
   <div class="row row-cols-1 row-cols-md-3 g-4">

@@ -15,6 +15,16 @@ export class TripDataService {
     return this.http.get<Trip[]>(this.apiBaseUrl);
   }
 
+  // Algorithms and Data Structure enhancement: calls the indexed
+  // /api/trips/search endpoint instead of fetching every trip and
+  // filtering it in the component. See app_api/controllers/trips.js
+  // (tripsSearch) for the Big O / indexing discussion. Passing an empty
+  // query returns the full list, matching the previous default behavior.
+  searchTrips(query: string): Observable<Trip[]> {
+    const params = query && query.trim() ? { q: query.trim() } : {};
+    return this.http.get<Trip[]>(`${this.apiBaseUrl}/search`, { params });
+  }
+
   getTrip(code: string): Observable<Trip> {
     return this.http.get<Trip>(`${this.apiBaseUrl}/${code}`);
   }
